@@ -17,14 +17,28 @@ def log_new_urge(intensity): #allows you to log a new urge with a HH:MM DD/MM/YY
   load_logs = activity_log()
   time = datetime.now().strftime("%H:%M %d/%m/%Y")
   new_urge = { #how the .json file should be laid out
+      "type": "urge",
       "datetime": time,
       "intensity": intensity
   }
-
+  
   load_logs.append(new_urge)
   with open(urge_log, "w") as f:
     json.dump(load_logs, f, indent=4)
     print(f"Logged new urge successfully. [{time}]") #places the unlogged urge inside the .json file.
+
+def log_new_relapse():
+  load_logs = activity_log()
+  time = datetime.now().strftime("%H:%M %d/%m/%Y")
+  new_relapse = { #how the .json file should be laid out pt. 2
+      "type": "relapse",
+      "datetime": time
+  }
+  
+  load_logs.append(new_relapse)
+  with open(urge_log, "w") as f:
+    json.dump(load_logs, f, indent=4)
+    print(f"Logged new relapse successfully. [{time}]") #places the unlogged relapse inside the .json file.
 
 def stats(): #calculates total number of urges and the date of your last urge. Not used as of yet.
   load_logs = activity_log()
@@ -41,7 +55,11 @@ def show_logs(): #shows all logged urges, if none are found, returns a message s
     return
 
   for index, entry in enumerate(load_logs, start=1):
-    print(f"{index}. [{entry['datetime']}] | Intensity: {entry['intensity']}")
+    entry_type = entry.get("type", "urge")
+    if entry_type == "urge":
+      print(f"{index}. URGE | [{entry['datetime']}] | Intensity: {entry['intensity']}")
+    elif entry_type == "relapse":
+      print(f"{index}. RELAPSE | [{entry['datetime']}]")
 
 def reset(): #clears all data from the log file
   with open(urge_log, "w") as f:
@@ -60,9 +78,10 @@ while True:
     print()
     print("OPTIONS DASHBOARD:")
     print("1.) LOG URGE")
-    print("2.) OPEN URGE LOGS")
+    print("2.) LOG RELAPSE")
     print("3.) RESET")
-    print("4.) EXIT")
+    print("4.) OPEN URGE LOGS")
+    print("5.) EXIT")
     print("(SELECT NUMBER OF DESIRED OPTION)")
     print()
   elif user_input == "1":
@@ -76,14 +95,16 @@ while True:
     else:
       print("INVALID")
   elif user_input == "2":
-    show_logs()
+    log_new_relapse()
   elif user_input == "3":
     confirm = input(f"Are you sure? y/N ") #makes sure youre 100% sure about removing your data
     if confirm == "y" or confirm == "Y":
       reset()
     else:
       print("Action aborted or input invalid. Nothing has been changed.")
-  elif user_input == "4": #kills the program
+  elif user_input == "4":
+    show_logs()
+  elif user_input == "5": #kills the program
     break
   else:
     print("INVALID")
