@@ -55,7 +55,7 @@ def show_logs(): #shows all logged urges, if none are found, returns a message s
     return
 
   for index, entry in enumerate(load_logs, start=1):
-    entry_type = entry.get("type", "urge")
+    entry_type = entry.get("type", "urge") #if you have an older version without the type field, its treated as an urge (shouldnt because nobody else has used this as far as i know, but oh well)
     if entry_type == "urge":
       print(f"{index}. URGE | [{entry['datetime']}] | Intensity: {entry['intensity']}")
     elif entry_type == "relapse":
