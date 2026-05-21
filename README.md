@@ -8,11 +8,11 @@ CURRENT FEATURES:
 - Help menu
 - Urge tracking with date and time.
 - Activity logs
+- Relapse tracker
 
 PLANNED FEATURES:
 - .exe
 - Tkinter GUI
-- Relapse tracker
 
 POTENTIAL FEATURES:
 - Sober timer
