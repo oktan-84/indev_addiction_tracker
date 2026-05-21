@@ -1,6 +1,5 @@
 
 #an addiction tracker.
-#Forgot to add notation as i was doing it so... good luck?
 
 import json
 import os
