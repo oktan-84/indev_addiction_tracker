@@ -9,15 +9,15 @@ from datetime import datetime
 urge_log = "urge_log.json"
 
 def activity_log():
-  if not os.path.exists(urge_log):
+  if not os.path.exists(urge_log): #checks if the log file exists, if it doesn't then it makes it exist ig
     return[]
   with open(urge_log, "r") as f:
     return json.load(f)
 
-def log_new_urge(intensity):
+def log_new_urge(intensity): #allows you to log a new urge with a HH:MM DD/MM/YYYY format
   load_logs = activity_log()
   time = datetime.now().strftime("%H:%M %d/%m/%Y")
-  new_urge = {
+  new_urge = { #how the .json file should be laid out
       "datetime": time,
       "intensity": intensity
   }
@@ -25,16 +25,16 @@ def log_new_urge(intensity):
   load_logs.append(new_urge)
   with open(urge_log, "w") as f:
     json.dump(load_logs, f, indent=4)
-    print(f"Logged new urge successfully. [{time}]")
+    print(f"Logged new urge successfully. [{time}]") #places the unlogged urge inside the .json file.
 
-def stats():
+def stats(): #calculates total number of urges and the date of your last urge. Not used as of yet.
   load_logs = activity_log()
   total_urges = len(load_logs)
 
   last_urge = load_logs[-1]
   return total_urges, f"{last_urge['datetime']}"
 
-def show_logs():
+def show_logs(): #shows all logged urges, if none are found, returns a message saying so
   load_logs = activity_log()
   print(f"URGE LOG:")
   if not load_logs:
@@ -44,18 +44,18 @@ def show_logs():
   for index, entry in enumerate(load_logs, start=1):
     print(f"{index}. [{entry['datetime']}] | Intensity: {entry['intensity']}")
 
-def reset():
+def reset(): #clears all data from the log file
   with open(urge_log, "w") as f:
     json.dump([], f, indent=4)
 
 print()
-print("WELCOME TO THE WIZARDWARE™ ADDICTION TRACKER (INDEV | CLI)")
+print("WELCOME TO THE WIZARDWARE™ ADDICTION TRACKER (INDEV | CLI)") #welcome message because friendly
 print()
 print("If you are unsure, enter 'help'")
 
 while True:
   print()
-  user_input = input("> ")
+  user_input = input("> ") #takes input of 'help, 1, 2, 3, or 4 then performs associated action
   print()
   if user_input == "help":
     print()
@@ -67,7 +67,7 @@ while True:
     print("(SELECT NUMBER OF DESIRED OPTION)")
     print()
   elif user_input == "1":
-    colour = input("Intensity? (r/a/g) ")
+    colour = input("Intensity? (r/a/g) ") #assigns intensity value to urge
     if colour == "r":
       log_new_urge("Red")
     elif colour == "a":
@@ -79,12 +79,12 @@ while True:
   elif user_input == "2":
     show_logs()
   elif user_input == "3":
-    confirm = input(f"Are you sure? y/N ")
+    confirm = input(f"Are you sure? y/N ") #makes sure youre 100% sure about removing your data
     if confirm == "y" or confirm == "Y":
       reset()
     else:
       print("Action aborted or input invalid. Nothing has been changed.")
-  elif user_input == "4":
+  elif user_input == "4": #kills the program
     break
   else:
     print("INVALID")
