@@ -48,11 +48,15 @@ def reset():
   with open(urge_log, "w") as f:
     json.dump([], f, indent=4)
 
+print()
+print("WELCOME TO THE WIZARDWARE™ ADDICTION TRACKER (INDEV | CLI)")
+print()
 print("If you are unsure, enter 'help'")
 
 while True:
   print()
   user_input = input("> ")
+  print()
   if user_input == "help":
     print()
     print("OPTIONS DASHBOARD:")
