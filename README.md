@@ -7,11 +7,12 @@ __IMPORTANT: CREATES .JSON FILE TO STORE DATA__
 CURRENT FEATURES:
 - Help menu
 - Urge tracking with date and time.
-- Urge logs
+- Activity logs
 
 PLANNED FEATURES:
 - .exe
 - Tkinter GUI
+- Relapse tracker
 
 POTENTIAL FEATURES:
 - Sober timer
