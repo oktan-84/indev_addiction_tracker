@@ -6,7 +6,7 @@ __IMPORTANT: CREATES .JSON FILE TO STORE DATA__
 
 __DISCLAIMER: THIS IS THE BULLY BRANCH, MEANING IT WILL INSULT EVERY ACTION YOU PERFORM... RUTHLESSLY__
 
-__If you want to talk to anybody about any issues, please head to [findahelpline.com](https://findahelpline.com/)
+If you want to talk to anybody about any issues, please head to [findahelpline.com](https://findahelpline.com/)
 
 CURRENT FEATURES:
 - Help menu
