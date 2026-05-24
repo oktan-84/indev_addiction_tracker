@@ -8,7 +8,7 @@ import numpy as np
 
 urge_log = "urge_log.json"
 
-insult1 = np.random.choice(["Pathetic.", "Can't make it a day without crawling back like some kind of fucking junkie.", "Another urge? You genuinely are a waste of space, aren't you?", "Weak. So fucking weak.", "I bet you'll relapse before the sun comes down.", "You're worthless. Everyone knows it. Even deep down, somewhere in that impietous heart of yours, you know it too."])
+insult1 = (["Pathetic.", "Can't make it a day without crawling back like some kind of fucking junkie.", "Another urge? You genuinely are a waste of space, aren't you?", "Weak. So fucking weak.", "I bet you'll relapse before the sun comes down.", "You're worthless. Everyone knows it. Even deep down, somewhere in that impietous heart of yours, you know it too."])
 
 def activity_log():
   if not os.path.exists(urge_log): #checks if the log file exists, if it doesn't then it makes it exist ig
@@ -29,7 +29,7 @@ def log_new_urge(intensity): #allows you to log a new urge with a HH:MM DD/MM/YY
   with open(urge_log, "w") as f:
     json.dump(load_logs, f, indent=4)
     print(f"Logged new urge successfully. [{time}]") #places the unlogged urge inside the .json file.
-    print(insult1)
+    print(np.random.choice(insult1))
 
 def log_new_relapse():
   load_logs = activity_log()
@@ -43,7 +43,7 @@ def log_new_relapse():
   with open(urge_log, "w") as f:
     json.dump(load_logs, f, indent=4)
     print(f"Logged new relapse successfully. [{time}]") #places the unlogged relapse inside the .json file.
-    print(insult1)
+    print(np.random.choice(insult1))
 
 def stats(): #calculates total number of urges and the date of your last urge. Not used as of yet.
   load_logs = activity_log()
