@@ -4,8 +4,11 @@
 import json
 import os
 from datetime import datetime
+import numpy as np
 
 urge_log = "urge_log.json"
+
+insult1 = np.random.choice(["Pathetic.", "You're weak."])
 
 def activity_log():
   if not os.path.exists(urge_log): #checks if the log file exists, if it doesn't then it makes it exist ig
@@ -26,6 +29,7 @@ def log_new_urge(intensity): #allows you to log a new urge with a HH:MM DD/MM/YY
   with open(urge_log, "w") as f:
     json.dump(load_logs, f, indent=4)
     print(f"Logged new urge successfully. [{time}]") #places the unlogged urge inside the .json file.
+    print(insult1)
 
 def log_new_relapse():
   load_logs = activity_log()
@@ -39,6 +43,7 @@ def log_new_relapse():
   with open(urge_log, "w") as f:
     json.dump(load_logs, f, indent=4)
     print(f"Logged new relapse successfully. [{time}]") #places the unlogged relapse inside the .json file.
+    print(insult1)
 
 def stats(): #calculates total number of urges and the date of your last urge. Not used as of yet.
   load_logs = activity_log()
