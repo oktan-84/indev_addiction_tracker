@@ -8,7 +8,7 @@ import numpy as np
 
 urge_log = "urge_log.json"
 
-insult1 = np.random.choice(["Pathetic.", "You're weak."])
+insult1 = np.random.choice(["Pathetic.", "You're weak.", "I knew it would come to this.", "I hope you're filled with self loathing."])
 
 def activity_log():
   if not os.path.exists(urge_log): #checks if the log file exists, if it doesn't then it makes it exist ig
