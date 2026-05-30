@@ -83,10 +83,12 @@ def reset(): #clears all data from the log file
 logstart()
 
 #frontend
+
 colour = "beige"
 colour2 = "lightgrey"
 import tkinter as tk
 from tkinter import scrolledtext
+from tkinter import messagebox
 
 root = tk.Tk() #creates main window
 root.configure(background=f"{colour}")
@@ -145,7 +147,7 @@ relapsebutton = tk.Button(root, text="RELAPSE", font="bold", command=lambda: [lo
 relapsebutton.place(x=120, y=451)
 relapsebutton.configure(background=f"{colour2}")
 
-resetbutton = tk.Button(root, text="RESET", font="bold", command=lambda: [reset(), updatelog()])
+resetbutton = tk.Button(root, text="RESET", font="bold", command=lambda: [reset() if messagebox.askyesno(title="RESET DATA", message="Reset Data? This cannot be undone.") else None, updatelog()])
 resetbutton.place(x=40, y=450)
 resetbutton.configure(background="red")
 
