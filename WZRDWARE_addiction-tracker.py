@@ -6,6 +6,8 @@ import os
 from datetime import datetime
 import numpy as np
 
+#backend
+
 urge_log = "urge_log.json"
 
 insult1 = (["Pathetic.", "Can't make it a day without crawling back like some kind of fucking junkie.", "Another urge? You genuinely are a waste of space, aren't you?", "Weak. So fucking weak.", "I bet you'll relapse before the sun comes down.", "You're worthless. Everyone knows it. Even deep down, somewhere in that impietous heart of yours, you know it too."])
