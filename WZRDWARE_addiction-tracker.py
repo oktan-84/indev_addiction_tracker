@@ -5,6 +5,8 @@ import json
 import os
 from datetime import datetime
 
+#backend
+
 urge_log = "urge_log.json"
 
 def activity_log():
@@ -40,6 +42,19 @@ def log_new_relapse():
     json.dump(load_logs, f, indent=4)
     print(f"Logged new relapse successfully. [{time}]") #places the unlogged relapse inside the .json file.
 
+def logstart(): #allows you to log a new urge with a HH:MM DD/MM/YYYY format
+  load_logs = activity_log()
+  time = datetime.now().strftime("%H:%M %d/%m/%Y")
+  new_urge = { #how the .json file should be laid out
+      "type": "CODE EXECUTION",
+      "datetime": time,
+  }
+  
+  load_logs.append(new_urge)
+  with open(urge_log, "w") as f:
+    json.dump(load_logs, f, indent=4)
+    print(f"Logged started successfully. [{time}]") #places the unlogged urge inside the .json file.
+
 def stats(): #calculates total number of urges and the date of your last urge. Not used as of yet.
   load_logs = activity_log()
   total_urges = len(load_logs)
@@ -65,46 +80,73 @@ def reset(): #clears all data from the log file
   with open(urge_log, "w") as f:
     json.dump([], f, indent=4)
 
-print()
-print("WELCOME TO THE WIZARDWARE™ ADDICTION TRACKER (INDEV | CLI)") #welcome message because friendly
-print()
-print("If you are unsure, enter 'help'")
+logstart()
 
-while True:
-  print()
-  user_input = input("> ") #takes input of 'help, 1, 2, 3, or 4 then performs associated action
-  print()
-  if user_input == "help":
-    print()
-    print("OPTIONS DASHBOARD:")
-    print("1.) LOG URGE")
-    print("2.) LOG RELAPSE")
-    print("3.) RESET")
-    print("4.) OPEN URGE LOGS")
-    print("5.) EXIT")
-    print("(SELECT NUMBER OF DESIRED OPTION)")
-    print()
-  elif user_input == "1":
-    colour = input("Intensity? (r/a/g) ") #assigns intensity value to urge
-    if colour == "r":
-      log_new_urge("Red")
-    elif colour == "a":
-      log_new_urge("Amber")
-    elif colour == "g":
-      log_new_urge("Green")
-    else:
-      print("INVALID")
-  elif user_input == "2":
-    log_new_relapse()
-  elif user_input == "3":
-    confirm = input(f"Are you sure? y/N ") #makes sure youre 100% sure about removing your data
-    if confirm == "y" or confirm == "Y":
-      reset()
-    else:
-      print("Action aborted or input invalid. Nothing has been changed.")
-  elif user_input == "4":
-    show_logs()
-  elif user_input == "5": #kills the program
-    break
+#frontend
+colour = "beige"
+colour2 = "lightgrey"
+import tkinter as tk
+from tkinter import scrolledtext
+
+root = tk.Tk() #creates main window
+root.configure(background=f"{colour}")
+
+root.title("WIZARDWARE ADDICTION TRACKER") #sets title
+
+img = tk.PhotoImage(file = "image.png")
+root.iconphoto(False, img)
+
+root.geometry("550x550")
+root.resizable(False, False)
+
+with open(urge_log, "r") as f:
+  c1 = json.load(f)
+  c2 = activity_log()
+
+logtitle = tk.Label(root, text="ACTIVITY LOG", font="Helvetica 20 bold")
+logtitle.place(x=40, y=30)
+logtitle.configure(background=f"{colour}")
+
+log = scrolledtext.ScrolledText(root, width=50, height=20, font="Helvetica 12")
+log.place(x=40, y=80)
+
+def updatelog():
+  log.configure(state="normal")
+  log.delete(1.0, tk.END)
+
+  logs = activity_log()
+
+  if not logs:
+    log.insert(tk.END, "No Entries Found")
   else:
-    print("INVALID")
+    for index, entry in enumerate(logs, start=1):
+      line = f"{index}.) {entry['type'].upper()} / [{entry['datetime']}]"
+      if "intensity" in entry:
+        line += f" / Intensity: {entry['intensity']}"
+      log.insert(tk.END, line + "\n")
+
+log.configure(state="disabled")
+
+updatelog()
+
+gurgebutton = tk.Button(root, text="GREEN URGE", font="bold", command=lambda: [log_new_urge("GREEN"), updatelog()])
+gurgebutton.place(x=40, y=490)
+gurgebutton.configure(background=f"{colour2}")
+
+aurgebutton = tk.Button(root, text="AMBER URGE", font="bold", command=lambda: [log_new_urge("AMBER"), updatelog()])
+aurgebutton.place(x=330, y=451)
+aurgebutton.configure(background=f"{colour2}")
+
+rurgebutton = tk.Button(root, text="RED URGE", font="bold", command=lambda: [log_new_urge("RED"), updatelog()])
+rurgebutton.place(x=220, y=451)
+rurgebutton.configure(background=f"{colour2}")
+
+relapsebutton = tk.Button(root, text="RELAPSE", font="bold", command=lambda: [log_new_relapse(), updatelog()])
+relapsebutton.place(x=120, y=451)
+relapsebutton.configure(background=f"{colour2}")
+
+resetbutton = tk.Button(root, text="RESET", font="bold", command=lambda: [reset(), updatelog()])
+resetbutton.place(x=40, y=450)
+resetbutton.configure(background="red")
+
+root.mainloop() #keeps it open
