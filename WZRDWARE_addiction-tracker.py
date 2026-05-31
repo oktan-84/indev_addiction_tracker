@@ -103,27 +103,6 @@ import tkinter as tk
 from tkinter import scrolledtext
 from tkinter import messagebox
 
-splash = tk.Tk()
-splash.title("WIZARDWARE")
-splash.geometry("400x250")
-splash.resizable(False, False)
-
-splash.overrideredirect(True)
-splash.configure(background="black")
-
-scrnwdth = splash.winfo_screenwidth()
-scrnhght =splash.winfo_screenheight()
-x = (scrnwdth // 2) - (400 // 2)
-y = (scrnhght // 2) - (400 // 2)
-splash.geometry(f"400x250+{x}+{y}")
-
-splashlabel = tk.Label(splash, text="WIZARDWARE", font="Courier 24 bold", fg="lime", bg="black")
-splashlabel.pack(expand=True)
-
-splash.after(3000, splash.destroy)
-
-splash.mainloop()
-
 root = tk.Tk() #creates main window
 root.configure(background=f"{colour}")
 
