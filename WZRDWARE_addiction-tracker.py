@@ -80,12 +80,25 @@ def reset(): #clears all data from the log file
   with open(urge_log, "w") as f:
     json.dump([], f, indent=4)
 
+def escalteurge(): #allows you to log a new urge with a HH:MM DD/MM/YYYY format
+  load_logs = activity_log()
+  time = datetime.now().strftime("%H:%M %d/%m/%Y")
+  new_urge = { #how the .json file should be laid out
+      "type": "PREVIOUS URGE ESCALATED",
+      "datetime": time,
+  }
+  
+  load_logs.append(new_urge)
+  with open(urge_log, "w") as f:
+    json.dump(load_logs, f, indent=4)
+    print(f"Urge Escalated successfully. [{time}]") #places the unlogged urge inside the .json file.
+
 logstart()
 
 #frontend
 
-colour = "beige"
-colour2 = "lightgrey"
+colour = "lightgrey"
+colour2 = "white"
 import tkinter as tk
 from tkinter import scrolledtext
 from tkinter import messagebox
@@ -150,5 +163,9 @@ relapsebutton.configure(background=f"{colour2}")
 resetbutton = tk.Button(root, text="RESET", font="bold", command=lambda: [reset() if messagebox.askyesno(title="RESET DATA", message="Reset Data? This cannot be undone.") else None, updatelog()])
 resetbutton.place(x=40, y=450)
 resetbutton.configure(background="red")
+
+escalate = tk.Button(root, text="ESCALATE", font="bold", command=lambda: [escalteurge(), updatelog()])
+escalate.place(x=170, y=490)
+escalate.configure(background=colour2)
 
 root.mainloop() #keeps it open
