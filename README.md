@@ -1,8 +1,8 @@
 WELCOME TO THE WIZARDWARE™ ADDICTION TRACKER
 
-I am your host, OKTAN, and today we're gonna be going over the features of the _brilliant_ WIZARDWARE™ Addiction Tracker (CLI only rn and you have to make the .exe yourself. Don't you worry, my sweet, sweet child, I am getting to work on that.)
+I am your host, OKTAN, and today we're gonna be going over the features of the _brilliant_ WIZARDWARE™ Addiction Tracker (you have to make the .exe yourself. Don't you worry, my sweet, sweet child, I am getting to work on that.)
 
-__IMPORTANT: CREATES .JSON FILE TO STORE DATA__
+__CREATES .JSON FILE TO STORE DATA__
 
 CURRENT FEATURES:
 - Help menu
@@ -12,7 +12,6 @@ CURRENT FEATURES:
 
 PLANNED FEATURES:
 - .exe
-- Tkinter GUI
 
 POTENTIAL FEATURES:
 - Sober timer
